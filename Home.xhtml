@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+	   <title>Home Page</title>
+	   <style type="text/css">               
+            body{
+              background-image:url(img/1.png);
+              background-size: 1525px;
+            }     
+        </style>
+	</h:head>
+	
+	<h:body>
+	    <h1 style="text-align: center;"><h:outputText value="Espace Etudiant"/></h1>
+	    <h1 style="text-align: center;"><h:outputText value="FPL"/></h1>
+	    <h2 style="text-align: center;"><h:outputText value="2022-2023"/></h2>
+	    <center><p:graphicImage value="img/g.jpg" /></center>
+	    <h:form><center><p:commandLink  action="Filiere" value="Filiere Interface" /></center></h:form>
+	    <h:form><center><p:commandLink action="Etudiant" value="Etudiant Interface" /></center></h:form>
+	    <br/>
+	    <br />
+	    <h:form><center><p:commandLink  action="index" value="LogOut" /></center></h:form>
+	</h:body>
+</html>

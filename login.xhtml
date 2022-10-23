@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+	   <title>Gestion de Scolarite</title>
+	    <style type="text/css">               
+            body{
+              background-image:url(img/1.png);
+              background-size: 1525px;
+            }     
+        </style>
+	</h:head>
+	
+	<h:body>
+	   
+	   
+  <div style="width: 35%; position: relative; left: 40%">
+  <h:form id="login" >
+  <p:fieldset>
+       <h2 style="text-align: center;"><h:outputText value="login Page"/></h2>
+    <h:panelGrid columns="3" cellpadding="10" style="margin: 0 auto;">
+        <p:graphicImage value="img/g.jpg"   style="width: 90%; height:90%"/>
+        <p:outputLabel for="login" value="userName" />
+        <p:inputText id="login" value= "#{userBean.user.login}" placeholder="Enter UserName"/>
+        <p:message for="login" />
+        <p:outputLabel for="password" value="Password" />
+        <p:password id="password" value="#{userBean.user.password}" placeholder="Enter Password">
+        </p:password>
+        <p:message for="password" />
+       
+        <p:commandButton value="Login" action="#{userBean.valid()}" iconPos="left"/>
+    </h:panelGrid>
+  </p:fieldset>
+ </h:form>
+  </div>
+	</h:body>
+</html>

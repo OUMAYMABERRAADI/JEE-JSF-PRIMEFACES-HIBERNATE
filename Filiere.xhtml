@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+   <h:head> 
+    <title>Gestion d'ecole</title>
+     <style type="text/css">               
+            body{
+              background-image:url(img/2.png);
+              background-size: 1600px;
+            }     
+       </style>
+   </h:head>
+
+<h:body>
+ <center><h1><h:outputText value="Gestion des Filières"/></h1></center>
+ <div style="width: 50%; position: relative; left: 25%" >
+  <h:form id="ajouter" >
+  <p:fieldset> <f:facet name="legend">${filiereBean.label} d'une Filiere</f:facet>
+    <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
+        <p:outputLabel for="id" value="Id" />
+        <p:inputText id="id" rendered ="true" value="#{filiereBean.filiere.id}" placeholder="Enter Id" dir="ltr"  />
+        <p:message for="id" />
+        <p:outputLabel for="code" value="Code" />
+        <p:inputText id="code" value="#{filiereBean.filiere.code}" placeholder="Enter code"/>
+        <p:message for="code" />
+ 
+        <p:outputLabel for="libelle" value="libelle" />
+        <p:inputText id="libelle" value="#{filiereBean.filiere.libelle}" placeholder="Enter libelle">
+        </p:inputText>
+        <p:message for="libelle" />
+ 
+        <p:commandButton update="filiereForm  ajouter" value="#{filiereBean.label}" action="#{filiereBean.save()}"/>
+    </h:panelGrid>
+  </p:fieldset>
+ </h:form>
+  </div>
+<br />
+ <div style="width: 75%; position: relative; left: 12%">
+   <h:form id="filiereForm">
+  
+     <p:dataTable id="filiereTable" value="#{filiereBean.filieres}" var="filiere" >
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{filiere.id}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">Code</f:facet>
+                <h:outputText value="#{filiere.code}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">Libelle</f:facet>
+                <h:outputText value="#{filiere.libelle}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">Modifie</f:facet>
+                <p:commandLink update="@form ajouter " action="#{filiereBean.modify(filiere)}"><center><h:graphicImage value="img/b_edit.png" /></center></p:commandLink>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Delete</f:facet>
+                <p:commandLink update="@form" action="#{filiereBean.delete(filiere)}" onclick = "alert('Are you sure?');" ><center><h:graphicImage value="img/b_drop.png" /></center></p:commandLink>
+            </p:column>
+        </p:dataTable>
+        
+         <center><h4><h:outputText value="Telecharger la liste de form pdf"/></h4>
+       <h:commandLink>
+            <p:graphicImage value ="/img/pdf.jpg" style="width: 10%; height:10%"/>
+            <p:dataExporter type ="pdf" target="filiereTable" fileName="filiere"/>
+        </h:commandLink></center>
+  
+  </h:form>
+  <h:form><center><p:commandLink  action="Home" value="Go to Home Page" /></center></h:form>
+  </div>
+
+</h:body>
+
+</html>

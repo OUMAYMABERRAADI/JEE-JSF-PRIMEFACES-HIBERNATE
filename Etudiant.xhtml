@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      
+      
+<h:head> 
+    <title>Gestion d'ecole</title>
+    
+    <style type="text/css">               
+            body{
+              background-image:url(img/2.png);
+               background-size: 1700px;
+            }     
+       </style>
+</h:head>
+<h:body>
+
+<center><h1><h:outputText value="Gestion des Etudiants"/></h1></center>
+<div style="width: 50%; position: relative; left: 25%" >
+  <h:form id="ajouter" >
+  <p:fieldset> <f:facet name="legend">${etudiantBean.label} d'un Etudiant</f:facet>
+    <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
+        <p:outputLabel for="id" value="Id" />
+        <p:inputText id="id" rendered ="true" value="#{etudiantBean.etudiant.id}" placeholder="Entrez Id" dir="ltr"  />
+        <p:message for="id" />
+        <p:outputLabel for="nom" value="Nom" />
+        <p:inputText id="nom" value="#{etudiantBean.etudiant.nom}" placeholder="Entrez nom"/>
+        <p:message for="nom" />
+ 
+        <p:outputLabel for="prenom" value="Prenom" />
+        <p:inputText id="prenom" value="#{etudiantBean.etudiant.prenom}" placeholder="Entrez prenom"/>
+        <p:message for="prenom" />
+ 
+         <p:outputLabel for="cne" value="CNE" />
+         <p:inputText id="cne" value="#{etudiantBean.etudiant.cne}" placeholder="Entrez cne"/>
+         <p:message for="cne" />
+         
+         <p:outputLabel value="Filiere" />
+         <h:selectOneMenu converter="javax.faces.Integer" value="#{etudiantBean.etudiant.filiere.id}">
+           <f:selectItems value="#{filiereBean.filieres}"  var="f"  
+             itemValue="#{f.id}"  itemLabel="#{f.code}"/>
+         </h:selectOneMenu>
+        <p:commandButton update="etudiantForm  ajouter" value="#{etudiantBean.label}" action="#{etudiantBean.save()}"/>
+    </h:panelGrid>
+    </p:fieldset>
+  
+ </h:form>
+  </div>
+
+<br />
+
+<div style="width: 50%; position: relative; left: 25%" >
+  <h:form id="affiche" >
+
+         <p:outputLabel value="Choisie le Filiere " />
+         <h:selectOneMenu converter="javax.faces.Integer" value="#{etudiantBean.etudiant.filiere.id}">
+           <f:selectItems value="#{filiereBean.filieres}"  var="f"  
+             itemValue="#{f.id}"  itemLabel="#{f.code}"/>
+         </h:selectOneMenu>
+        <p:commandButton update="etudiantForm1" value="Affiche" action="#{etudiantBean.getByIdFiliere(etudiantBean.etudiant.filiere.id)}"/>
+        </h:form>
+        <br  /><br />
+       <h:form id="etudiantForm1">
+        <p:dataTable id="etudiantTable1" value="#{etudiantBean.getByIdFiliere(etudiantBean.etudiant.filiere.id)}" var="etudiant" >
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{etudiant.id}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">Nom</f:facet>
+                <h:outputText value="#{etudiant.nom}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">Prenom</f:facet>
+                <h:outputText value="#{etudiant.prenom}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">CNE</f:facet>
+                <h:outputText value="#{etudiant.cne}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">Filiere</f:facet>
+                <h:outputText value="#{etudiantBean.codeFiliere(etudiant.filiere.id)}" />
+            </p:column>
+
+        </p:dataTable>
+  </h:form>
+ </div>
+
+<br/><br/>
+   <center><h2><h:outputText value="List d'Etudiants Total"/></h2></center>
+  <div style="width: 75%; position: relative; left: 12%" >
+   <h:form id="etudiantForm">
+  
+     <p:dataTable id="etudiantTable" value="#{etudiantBean.etudiants}" var="etudiant" >
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{etudiant.id}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">Nom</f:facet>
+                <h:outputText value="#{etudiant.nom}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">Prenom</f:facet>
+                <h:outputText value="#{etudiant.prenom}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">CNE</f:facet>
+                <h:outputText value="#{etudiant.cne}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">Filiere</f:facet>
+                <h:outputText value="#{etudiantBean.codeFiliere(etudiant.filiere.id)}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">Modifie</f:facet>
+                <p:commandLink update="@form ajouter" action="#{etudiantBean.modify(etudiant)}"><center><h:graphicImage value="img/b_edit.png" /></center></p:commandLink>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Delete</f:facet>
+                <p:commandLink update="@form" action="#{etudiantBean.delete(etudiant)}" onclick = "alert('Are you sure?');" ><center><h:graphicImage value="img/b_drop.png" /></center></p:commandLink>
+            </p:column>
+        </p:dataTable>
+         <center><h4><h:outputText value="Telecharger la liste de form pdf"/></h4>
+       <h:commandLink>
+            <p:graphicImage value ="/img/pdf.jpg" style="width: 10%; height:10%"/>
+            <p:dataExporter type ="pdf" target="etudiantTable" fileName="etudiant"/>
+        </h:commandLink></center>
+    </h:form>
+    <br/><br/>
+    <h:form><center><p:commandLink  action="Home" value="Go to Home Page" /></center></h:form>
+  </div>
+</h:body>
+</html>
